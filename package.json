@@ -15,7 +15,7 @@
     "format:write": "prettier . --write"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*.{ts}": "prettier --write"
   },
   "peerDependencies": {
     "react": "^18.3.1",
