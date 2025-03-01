@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import useTimeout from './useTimeout';
+import { useEffect } from "react";
+import useTimeout from "./useTimeout.ts";
 
 /**
  * A custom React hook that debounces the execution of a callback function.
@@ -35,7 +35,11 @@ import useTimeout from './useTimeout';
  * };
  * ```
  */
-export default function useDebounce(callback: () => void, delay: number, [...deps]: unknown[]): void {
+export default function useDebounce(
+  callback: () => void,
+  delay: number,
+  [...deps]: unknown[],
+): void {
   const { reset, clear } = useTimeout(callback, delay);
   useEffect(reset, [...deps, reset]);
   useEffect(clear, [clear]);

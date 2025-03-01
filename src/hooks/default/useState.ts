@@ -1,4 +1,8 @@
-import { type Dispatch, type SetStateAction, useState as useReactState } from 'react';
+import {
+  type Dispatch,
+  type SetStateAction,
+  useState as useReactState,
+} from "react";
 
 /**
  * Custom hook that wraps the useState hook from React and provides additional type safety.
@@ -25,7 +29,9 @@ import { type Dispatch, type SetStateAction, useState as useReactState } from 'r
  * }
  * ```
  */
-export default function useState<T>(initialValue: T | (() => T)): [T, Dispatch<SetStateAction<T>>] {
+export default function useState<T>(
+  initialValue: T | (() => T),
+): [T, Dispatch<SetStateAction<T>>] {
   const [state, setState] = useReactState(initialValue);
 
   return [state, setState] as const;

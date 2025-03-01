@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 /**
  * A custom React hook that manages a boolean state and provides a function to toggle it and make it true or false whenever needed.
@@ -29,7 +29,7 @@ export default function useToggle(initialValue: boolean) {
   const [state, setState] = useState(initialValue);
 
   function setValue(value?: boolean) {
-    setState(prev => typeof value === "boolean" ? value : !prev);
+    setState((prev) => (typeof value === "boolean" ? value : !prev));
   }
 
   return [state, setValue] as const;

@@ -1,4 +1,8 @@
-import { DependencyList, EffectCallback, useEffect as useReactEffect } from 'react';
+import {
+  DependencyList,
+  EffectCallback,
+  useEffect as useReactEffect,
+} from "react";
 
 /**
  * A custom hook that provides the same functionality as the React `useEffect` hook.
@@ -14,6 +18,9 @@ import { DependencyList, EffectCallback, useEffect as useReactEffect } from 'rea
  * @returns - The same return value as the React `useEffect` hook.
  * This return value is currently not used, but it may be used in the future.
  */
-export default function useEffect(effect: EffectCallback, deps?: DependencyList) {
- return useReactEffect(effect, deps ? deps : undefined);
+export default function useEffect(
+  effect: EffectCallback,
+  deps?: DependencyList,
+) {
+  return useReactEffect(effect, deps ? deps : undefined);
 }

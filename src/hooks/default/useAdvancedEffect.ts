@@ -1,4 +1,4 @@
-import { DependencyList, EffectCallback, useEffect, useRef } from 'react';
+import { DependencyList, EffectCallback, useEffect, useRef } from "react";
 
 /**
  * A custom React hook that enhances the `useEffect` hook by providing advanced dependency comparison.
@@ -9,27 +9,32 @@ import { DependencyList, EffectCallback, useEffect, useRef } from 'react';
  *
  * @returns {void}
  */
-export default function useAdvancedEffect(effect: EffectCallback, deps: DependencyList): void {
- const firstTimeRenderRef = useRef(true);
- const previousDepsRef = useRef<DependencyList | undefined>(undefined);
+export default function useAdvancedEffect(
+  effect: EffectCallback,
+  deps: DependencyList,
+): void {
+  const firstTimeRenderRef = useRef(true);
+  const previousDepsRef = useRef<DependencyList | undefined>(undefined);
 
- useEffect(() => {
-  // Check if this is the first render
-  if (firstTimeRenderRef.current) {
-   firstTimeRenderRef.current = false;
-   previousDepsRef.current = deps;
+  useEffect(() => {
+    // Check if this is the first render
+    if (firstTimeRenderRef.current) {
+      firstTimeRenderRef.current = false;
+      previousDepsRef.current = deps;
 
-   return;
-  }
+      return;
+    }
 
-  // Compare previous and current dependencies to detect changes
-  const dependenciesChanged = deps.some((dep, i) => dep !== previousDepsRef.current?.[i]);
+    // Compare previous and current dependencies to detect changes
+    const isDepsChanged = deps.some(
+      (dep, i) => dep !== previousDepsRef.current?.[i],
+    );
 
-  if (dependenciesChanged) {
-   // Update the previous dependencies reference
-   previousDepsRef.current = deps;
-   // Call the effect function
-   return effect();
-  }
- }, [effect, deps]);
+    if (isDepsChanged) {
+      // Update the previous dependencies reference
+      previousDepsRef.current = deps;
+      // Call the effect function
+      return effect();
+    }
+  }, [effect, deps]);
 }

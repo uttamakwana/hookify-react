@@ -1,4 +1,4 @@
-import { DependencyList, EffectCallback, useEffect, useRef } from 'react';
+import { DependencyList, EffectCallback, useEffect, useRef } from "react";
 
 /**
  * A custom React hook that enhances the `useEffect` hook by providing advanced dependency comparison.
@@ -9,21 +9,25 @@ import { DependencyList, EffectCallback, useEffect, useRef } from 'react';
  *
  * @returns {void}
  */
-export default function useUpdatedEffect(effect: EffectCallback, deps: DependencyList): void {
- const previousDepsRef = useRef<DependencyList | undefined>(undefined);
+export default function useUpdatedEffect(
+  effect: EffectCallback,
+  deps: DependencyList,
+): void {
+  const previousDepsRef = useRef<DependencyList | undefined>(undefined);
 
- useEffect(() => {
-  previousDepsRef.current = deps;
+  useEffect(() => {
+    previousDepsRef.current = deps;
 
-  // Compare previous and current dependencies to detect changes
-  const dependenciesChanged = deps.some((dep, i) => dep !== previousDepsRef.current?.[i]);
-  console.log(deps, previousDepsRef.current);
+    // Compare previous and current dependencies to detect changes
+    const isDepsChanged = deps.some(
+      (dep, i) => dep !== previousDepsRef.current?.[i],
+    );
 
-  if (dependenciesChanged) {
-   // Update the previous dependencies reference
-   previousDepsRef.current = deps;
-   // Call the effect function
-   return effect();
-  }
- }, [effect, deps]);
+    if (isDepsChanged) {
+      // Update the previous dependencies reference
+      previousDepsRef.current = deps;
+      // Call the effect function
+      return effect();
+    }
+  }, [effect, deps]);
 }

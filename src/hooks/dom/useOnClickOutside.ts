@@ -1,5 +1,5 @@
-import { type RefObject, useEffect } from "react";
-import { useEventListener } from "./useEventListener";
+import { type RefObject } from "react";
+import { useEventListener } from "./useEventListener.ts";
 /**
  * A custom React hook that listens for clicks outside of a specified element and triggers a callback function.
  *
@@ -11,7 +11,7 @@ import { useEventListener } from "./useEventListener";
  * @example
  * ```typescript
  * import React from 'react';
- * import useOnClickOutside from './useOnClickOutside';
+ * import useClickOutside from './useClickOutside';
  *
  * const MyComponent: React.FC = () => {
  *   const ref = React.useRef<HTMLDivElement>(null);
@@ -19,7 +19,7 @@ import { useEventListener } from "./useEventListener";
  *     console.log('Clicked outside!');
  *   };
  *
- *   useOnClickOutside(ref, handleClickOutside);
+ *   useClickOutside(ref, handleClickOutside);
  *
  *   return (
  *     <div ref={ref}>
@@ -29,15 +29,16 @@ import { useEventListener } from "./useEventListener";
  * };
  * ```
  */
-export default function useOnClickOutside(elementRef: RefObject<HTMLElement>, callback: () => void): void {
- useEffect(() => {
+export default function useClickOutside(
+  elementRef: RefObject<HTMLElement>,
+  callback: () => void,
+): void {
   function handleClick(e: MouseEvent | TouchEvent) {
-   if (!elementRef.current?.contains(e.target as Node)) {
-    callback();
-   }
+    if (!elementRef.current?.contains(e.target as Node)) {
+      callback();
+    }
   }
+
   useEventListener("mousedown", handleClick);
   useEventListener("touchstart", handleClick);
- }, [elementRef, callback])
 }
-

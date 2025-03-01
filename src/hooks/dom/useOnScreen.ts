@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from 'react';
+import { RefObject, useEffect, useState } from "react";
 
 /**
  * Custom hook to check if an element is visible within the viewport.
@@ -8,34 +8,34 @@ import { RefObject, useEffect, useState } from 'react';
  * @returns `true` if the element is visible on the screen, otherwise `false`.
  */
 export function useOnScreen(
- element: RefObject<Element>,
- rootMargin: string = '0px'
+  element: RefObject<Element>,
+  rootMargin: string = "0px",
 ): boolean {
- const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
- useEffect(() => {
-  if (!element.current) return;
+  useEffect(() => {
+    if (!element.current) return;
 
-  // Ensure IntersectionObserver is supported
-  if (!('IntersectionObserver' in window)) {
-   console.warn('IntersectionObserver is not supported in this browser.');
-   return;
-  }
+    // Ensure IntersectionObserver is supported
+    if (!("IntersectionObserver" in window)) {
+      console.warn("IntersectionObserver is not supported in this browser.");
+      return;
+    }
 
-  const observer = new IntersectionObserver(
-   ([entry]) => {
-    setIsVisible(entry.isIntersecting);
-   },
-   { rootMargin }
-  );
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { rootMargin },
+    );
 
-  const target = element.current;
-  observer.observe(target);
+    const target = element.current;
+    observer.observe(target);
 
-  return () => {
-   observer.disconnect(); // Clean up observer
-  };
- }, [element, rootMargin]);
+    return () => {
+      observer.disconnect(); // Clean up observer
+    };
+  }, [element, rootMargin]);
 
- return isVisible;
+  return isVisible;
 }
