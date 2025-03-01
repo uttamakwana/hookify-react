@@ -11,7 +11,7 @@ export default function useInterval(
   callback: () => void,
   interval: number = 1000,
 ) {
-  const intervalRef = useRef(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   console.log(intervalRef);
 
   const clear = () => {
@@ -27,6 +27,7 @@ export default function useInterval(
     }, interval);
 
     return () => {
+      if (intervalRef.current == null) return;
       clearInterval(intervalRef.current);
     };
   }, [callback, interval]);
