@@ -24,4 +24,4 @@ jobs:
         run: npm install --frozen-lockfile
       
       - name: Run CI Scripts
-      - run: npm run ci
+        run: npm run ci
