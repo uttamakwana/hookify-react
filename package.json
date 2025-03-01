@@ -1,20 +1,23 @@
 {
-  "name": "rhl",
-  "private": true,
+  "name": "react-hook-kit",
+  "private": false,
   "version": "0.0.1",
-  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite --host",
     "test:watch": "vitest",
     "test": "vitest run",
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "husky",
     "format:check": "prettier . --check",
     "format:write": "prettier . --write",
     "format": "prettier --write src/",
-    "ci": "npm run lint && npm run test && npm run build"
+    "ci": "npm run lint && npm run test && npm run build",
+    "release": "npm run ci && changset publish"  
   },
   "lint-staged": {
     "**/*.{ts}": "prettier --write"
@@ -24,6 +27,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.28.1",
     "@eslint/js": "^9.13.0",
     "@tailwindcss/vite": "^4.0.8",
     "@types/react": "^18.3.12",
