@@ -49,5 +49,6 @@
     "vitest": "^3.0.7"
   },
   "author": "Uttam Makwana",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": "https://github.com/uttamakwana/hooks-for-react"
 }
