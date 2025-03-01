@@ -1,5 +1,5 @@
 {
-  "name": "react-hook-kit",
+  "name": "hooks-for-react",
   "private": false,
   "version": "0.0.1",
   "main": "./dist/index.js",
