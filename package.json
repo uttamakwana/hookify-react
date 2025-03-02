@@ -21,7 +21,7 @@
     "release": "npm run ci && changset publish"
   },
   "lint-staged": {
-    "**/*.{ts}": "prettier --write"
+    "**/*.ts": "prettier --write"
   },
   "peerDependencies": {
     "react": "^18.3.1",
