@@ -1,34 +1,34 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 /**
- * A custom React hook that returns the previous value of a given state variable.
+ * Custom React hook to store and retrieve the previous value of a given state or prop.
  *
- * @template T - The type of the state variable.
- * @param value - The current value of the state variable.
- * @returns The previous value of the state variable.
- *
- * @remarks
- * This hook uses React's useRef hook to maintain references to the current and previous values of the state variable.
- * When the value changes, the previous value is updated and the current value is stored for the next render.
+ * @template T - The type of the tracked value.
+ * @param value - The current value to track.
+ * @returns The previous value before the last update, or `null` if no previous value exists.
  *
  * @example
+ * import { usePrevious } from "hooks-for-react";
  * const [count, setCount] = useState(0);
  * const prevCount = usePrevious(count);
  *
  * useEffect(() => {
- *   if (prevCount !== undefined) {
- *     console.log(`Previous count: ${prevCount}, Current count: ${count}`);
- *   }
- * }, [count, prevCount]);
+ *   console.log(`Previous count: ${prevCount}, Current count: ${count}`);
+ * }, [count]);
+ *
+ * return (
+ *  <div>
+ *    <button onClick={() => setCount(prev => prev + 1)}>+1</button>
+ *    <span>Previous count value: {prevCount}</span>
+ *  </div>
+ * );
  */
-export default function usePrevious<T>(value: T) {
-  const currentValueRef = useRef<T>(value);
-  const previousValueRef = useRef<T>();
+export default function usePrevious<T>(value: T): T | null {
+  const ref = useRef<T | null>(null);
 
-  if (currentValueRef.current !== value) {
-    previousValueRef.current = currentValueRef.current;
-    currentValueRef.current = value;
-  }
+  useEffect(() => {
+    ref.current = value;
+  }, [value]);
 
-  return previousValueRef.current;
+  return ref.current;
 }

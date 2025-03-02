@@ -1,4 +1,25 @@
-import { useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
+
+export type TUseArrayMethods<T> = {
+  push: (value: T) => number;
+  pop: () => T | undefined;
+  shift: () => T | undefined;
+  unshift: (value: T) => number;
+  removeByIndex: (index: number) => void;
+  removeByValue: (value: T) => void;
+  clear: () => void;
+  replace: (newArray: T[]) => void;
+  reset: () => void;
+  filter: (predicate: (value: T, index: number, array: T[]) => boolean) => void;
+  updateByIndex: (index: number, value: T) => void;
+  updateByValue: (prevValue: T, newValue: T) => void;
+};
+
+type TUseArrayReturn<T> = readonly [
+  T[],
+  Dispatch<SetStateAction<T[]>>,
+  TUseArrayMethods<T>,
+];
 
 /**
  * A custom React hook for managing arrays. It provides utility functions for common operations
@@ -6,9 +27,30 @@ import { useRef, useState } from "react";
  *
  * @template T - The type of elements in the array.
  * @param initialValue - The initial value of the array.
- * @returns An object containing the array state and utility functions to manipulate it.
+ * @returns An array containing the state, setState and utility functions to manipulate it.
+ * - `push`: Adds a value to the end of the array.
+ * - `pop`: Removes and returns the last element of the array.
+ * - `unshift`: Adds a value to the beginning of the array.
+ * - `shift`: Removes and returns the first element of the array.
+ * - `removeByIndex`: Removes the first occurrence of a specified index from the array.
+ * - `removeByValue`: Removes the first occurrence of a specified value from the array.
+ * - `clear`: Clears all elements from the array.
+ * - `replace`: Replaces the current array with a new array.
+ * - `reset`: Resets the array to its initial value.
+ * - `filter`: Filters the array based on a predicate function and updates the state.
+ * - `updateByIndex`: Updates the value of an element at a specific index.
+ * - `updateByValue`: Updates the first occurrence of a specific value with a new value.
+ *
+ * @example
+ * import { useArray } from "hooks-for-react";
+ *
+ * export default function UseArray() {
+ *  const [data, setData, { push, pop, clear, filter }] = useArray<{ name: string, age: number }>();
+ *
+ *  return <div>Render and perform the action over here</div>
+ * }
  */
-export default function useArray<T>(initialValue: T[]) {
+export default function useArray<T>(initialValue: T[]): TUseArrayReturn<T> {
   // State to hold the array
   const [state, setState] = useState<T[]>(initialValue);
 

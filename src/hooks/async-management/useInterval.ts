@@ -1,35 +1,45 @@
 import { useEffect, useRef } from "react";
 
 /**
- * A custom hook to execuate a callback after a specific interval
+ * A custom hook to execute a callback at a specified interval.
  *
- * @param callback: A callback to exectue
- * @param interval: time in ms after a callback will execute (default to 1000)
+ * @param {() => void} callback - The function to execute at each interval.
+ * @param {number} [interval=1000] - The time in milliseconds between executions (defaults to 1000ms).
+ * @returns {{ clear: () => void }} - A function to stop the interval.
  *
+ * @example
+ * function TimerComponent() {
+ *   const [count, setCount] = useState(0);
+ *   const { clear } = useInterval(() => setCount((prev) => prev + 1), 1000);
+ *
+ *   return (
+ *     <div>
+ *       <p>Counter: {count}</p>
+ *       <button onClick={clear}>Stop Timer</button>
+ *     </div>
+ *   );
+ * }
  */
 export default function useInterval(
   callback: () => void,
   interval: number = 1000,
-) {
+): { clear: () => void } {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  console.log(intervalRef);
 
+  /**
+   * Clears the interval and resets the reference.
+   */
   const clear = () => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
-      // intervalRef.current = undefined
+      intervalRef.current = null; // Ensure it's properly reset
     }
   };
 
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      callback();
-    }, interval);
+    intervalRef.current = setInterval(callback, interval);
 
-    return () => {
-      if (intervalRef.current == null) return;
-      clearInterval(intervalRef.current);
-    };
+    return clear; // Cleanup function to clear the interval on unmount
   }, [callback, interval]);
 
   return { clear };

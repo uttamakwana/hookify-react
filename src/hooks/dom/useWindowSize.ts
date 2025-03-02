@@ -1,29 +1,51 @@
-import { useState, useCallback } from "react";
-import { useEventListener } from "./useEventListener.ts";
+import { useState, useCallback, useLayoutEffect } from "react";
+
+type WindowSize = { width: number; height: number };
+type TUseWindowSizeReturn = WindowSize;
 
 /**
- * Custom hook to track the size of the browser window.
+ * Custom hook to track the size of the browser window in real-time.
  *
- * @returns An object containing the current `width` and `height` of the window.
+ * @returns {Object} An object containing:
+ * - `width`: The current width of the window.
+ * - `height`: The current height of the window.
+ *
+ * @example
+ * import { useWindowSize } from "hooks-for-react";
+ *
+ * export default function UseWindowSize() {
+ *  const { width, height } = useWindowSize();
+ *  console.log(`Window Size: ${width} x ${height}`);
+ *
+ *  return <div>Get a window size</div>
+ * }
  */
-export function useWindowSize(): { width: number; height: number } {
-  // Default values for SSR or environments without a `window` object.
+export function useWindowSize(): TUseWindowSizeReturn {
   const isSSR = typeof window === "undefined";
-  const [size, setSize] = useState({
+
+  // Initialize state with actual window size (if available)
+  const [size, setSize] = useState<WindowSize>({
     width: isSSR ? 0 : window.innerWidth,
     height: isSSR ? 0 : window.innerHeight,
   });
 
-  // Throttle the resize handler for better performance.
-  const resizeHandler = useCallback(() => {
-    setSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
+  // Use useCallback to keep a stable reference
+  const updateSize = useCallback(() => {
+    setSize({ width: window.innerWidth, height: window.innerHeight });
   }, []);
 
-  // Attach the event listener using the custom `useEventListener` hook.
-  useEventListener("resize", resizeHandler);
+  // Handle updates efficiently with `useLayoutEffect`
+  useLayoutEffect(() => {
+    if (isSSR) return;
+
+    updateSize(); // Ensure size is accurate after hydration
+
+    window.addEventListener("resize", updateSize);
+
+    return () => {
+      window.removeEventListener("resize", updateSize);
+    };
+  }, [isSSR, updateSize]);
 
   return size;
 }

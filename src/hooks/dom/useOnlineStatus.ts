@@ -1,13 +1,35 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useEventListener } from "./useEventListener.ts";
 
-export default function useOnlineStatus() {
-  const [onlineStatus, setOnlineStatus] = useState<"online" | "offline">(
+type TOnlineStatus = "online" | "offline";
+type TUseOnlineStatusReturn = {
+  onlineStatus: TOnlineStatus;
+};
+
+/**
+ * A custom hook that tracks the online/offline status of the user's network connection.
+ *
+ * @returns {Object} An object containing:
+ * - `onlineStatus`: Indicating whether the user is "online" or "offline".
+ *
+ * @example
+ * import { useOnlineStatus } from "hooks-for-react";
+ *
+ * export default function UseOnlineStatus() {
+ *  const { onlineStatus } = useOnlineStatus();
+ *
+ *  return <div>{onlineStatus === "online" ? "You are online😁" ? "You are offline😥"}</div>
+ * }
+ */
+export default function useOnlineStatus(): TUseOnlineStatusReturn {
+  const [onlineStatus, setOnlineStatus] = useState<TOnlineStatus>(
     navigator.onLine ? "online" : "offline",
   );
 
-  useEffect(() => {
+  const updateStatus = () => {
     setOnlineStatus(navigator.onLine ? "online" : "offline");
-  }, []);
+  };
 
+  useEventListener("online", updateStatus, { current: window });
   return { onlineStatus };
 }

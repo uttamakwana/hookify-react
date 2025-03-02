@@ -15,6 +15,20 @@ type CounterValueType = number;
  *  - `decrement`: Function to decrement the counter by 1.
  *  - `decrementByValue`: Function to decrement the counter by a specified value.
  *  - `reset`: Function to reset the counter to its initial value.
+ *
+ * @example
+ * import { useCounter } from "hooks-for-react";
+ *
+ * export default function UseCounter() {
+ *  const { count, increment, decrement } = useCounter(0);
+ *
+ *  return (
+ *    <div>
+ *      <button onClick={increment}>+1</button>
+ *      <button onClick={decrement}>-1</button>
+ *    </div>
+ *  );
+ * }
  */
 export default function useCounter(initialValue: CounterValueType = 0) {
   // State to hold the current counter value.

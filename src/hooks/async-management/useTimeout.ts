@@ -6,6 +6,22 @@ import { useCallback, useEffect, useRef } from "react";
  * @param {() => void} callback - The function to execute when the timeout completes.
  * @param {number} delay - The delay in milliseconds for the timeout.
  * @returns {{ set: () => void, clear: () => void, reset: () => void }} - Functions to control the timeout.
+ *
+ * @example
+ * // Example usage in a component:
+ * function ExampleComponent() {
+ *   const { set, clear, reset } = useTimeout(() => {
+ *     console.log("Timeout executed!");
+ *   }, 1000);
+ *
+ *   return (
+ *     <div>
+ *       <button onClick={set}>Start Timeout</button>
+ *       <button onClick={clear}>Clear Timeout</button>
+ *       <button onClick={reset}>Reset Timeout</button>
+ *     </div>
+ *   );
+ * }
  */
 export default function useTimeout(
   callback: () => void,

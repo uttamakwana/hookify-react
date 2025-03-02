@@ -1,44 +1,58 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 type TPositionError = {
   code: number;
   message: string;
-  PERMISSION_DENIED: 1;
-  POSITION_UNAVAILABLE: 2;
-  TIMEOUT: 3;
 };
 
 type TUseLocationReturn = {
   loading: boolean;
   error: TPositionError | null;
-  coords: GeolocationCoordinates | undefined;
+  coords: GeolocationCoordinates | null;
 };
 
-/**
- * Custom hook to track user's geolocation continuously with retry mechanism.
- *
- * @param options - Geolocation API options and additional retry configurations.
- * @returns An object with loading state, error, and coordinates.
- */
-export function useGeoLocation(options?: {
+type GeoLocationOptions = {
   enableHighAccuracy?: boolean;
   maximumAge?: number;
   timeout?: number;
-  retryLimit?: number; // Maximum number of retries
-  retryDelay?: number; // Delay between retries in milliseconds
-}): TUseLocationReturn {
+  retryLimit?: number; // Maximum retry attempts
+  retryDelay?: number; // Delay (ms) between retries
+};
+
+/**
+ * Custom hook to track the user's geolocation with retry functionality.
+ *
+ * @param options - Configuration for geolocation tracking.
+ * @returns {Object} An object containing:
+ * - `loading`: Indicates whether location data is being fetched.
+ * - `error`: Contains error details if location retrieval fails.
+ * - `coords`: The user's latest coordinates (latitude, longitude, accuracy, etc.).
+ *
+ * @example
+ * import { useGeoLocation } from "hooks-for-react";
+ *
+ * export default function UseGeoLocation() {
+ *  const { loading, error, coords } = useGeoLocation({ enableHighAccuracy: true });
+ *  if (loading) return <p>Fetching location...</p>;
+ *  if (error) return <p>Error: {error.message}</p>;
+ *  return <p>Latitude: {coords?.latitude}, Longitude: {coords?.longitude}</p>;
+ * }
+ * ```
+ */
+export function useGeoLocation(
+  options?: GeoLocationOptions,
+): TUseLocationReturn {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<TPositionError | null>(null);
-  const [coords, setCoords] = useState<GeolocationCoordinates>();
+  const [coords, setCoords] = useState<GeolocationCoordinates | null>(null);
+  const retriesRef = useRef(0);
+  const watchIdRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!navigator.geolocation) {
       setError({
         code: 0,
-        message: "Geolocation API is not supported by this browser.",
-        PERMISSION_DENIED: 1,
-        POSITION_UNAVAILABLE: 2,
-        TIMEOUT: 3,
+        message: "Geolocation is not supported by this browser.",
       });
       setLoading(false);
       return;
@@ -52,62 +66,43 @@ export function useGeoLocation(options?: {
       retryDelay = 2000,
     } = options || {};
 
-    let retries = 0;
-    let watchId: number;
-
-    const attemptGeoLocation = () => {
-      if (retries > retryLimit) {
-        setError({
-          code: 0,
-          message: "Failed to retrieve location after multiple attempts.",
-          PERMISSION_DENIED: 1,
-          POSITION_UNAVAILABLE: 2,
-          TIMEOUT: 3,
-        });
-        setLoading(false);
-        return;
-      }
-
+    const fetchLocation = () => {
       setLoading(true);
 
       const successCallback = (position: GeolocationPosition) => {
         setCoords(position.coords);
         setError(null);
         setLoading(false);
-        retries = 0; // Reset retries on success
+        retriesRef.current = 0; // Reset retry count on success
       };
 
       const errorCallback = (positionError: GeolocationPositionError) => {
-        setError({
-          code: positionError.code,
-          message: positionError.message,
-          PERMISSION_DENIED: 1,
-          POSITION_UNAVAILABLE: 2,
-          TIMEOUT: 3,
-        });
+        setError({ code: positionError.code, message: positionError.message });
 
-        if (retries < retryLimit) {
-          retries += 1;
-          setTimeout(attemptGeoLocation, retryDelay); // Retry after delay
+        if (retriesRef.current < retryLimit) {
+          retriesRef.current += 1;
+          setTimeout(fetchLocation, retryDelay); // Retry with delay
         } else {
           setLoading(false);
         }
       };
 
-      // Use watchPosition for continuous updates
-      watchId = navigator.geolocation.watchPosition(
+      watchIdRef.current = navigator.geolocation.watchPosition(
         successCallback,
         errorCallback,
-        { enableHighAccuracy, maximumAge, timeout },
+        {
+          enableHighAccuracy,
+          maximumAge,
+          timeout,
+        },
       );
     };
 
-    attemptGeoLocation();
+    fetchLocation();
 
-    // Cleanup the watcher on unmount
     return () => {
-      if (watchId !== undefined) {
-        navigator.geolocation.clearWatch(watchId);
+      if (watchIdRef.current !== null) {
+        navigator.geolocation.clearWatch(watchIdRef.current);
       }
     };
   }, [options]);

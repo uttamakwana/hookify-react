@@ -1,41 +1,48 @@
-import { RefObject, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
+type TUseOnScreenReturn<T> = {
+  ref: React.MutableRefObject<T | null>;
+  isVisible: boolean;
+};
 /**
  * Custom hook to check if an element is visible within the viewport.
  *
  * @param element - A React ref object pointing to the target element.
  * @param rootMargin - Margin around the root. Can have values similar to CSS margin properties.
  * @returns `true` if the element is visible on the screen, otherwise `false`.
+ *
+ * @example
+ * import { useOnScreen } from "hooks-for-react";
+ *
+ * export default function UseOnScreen() {
+ *  const { ref, isVisible } = useOnScreen();
+ *
+ * return (
+ *     <div ref={ref} style={{ height: "200px", backgroundColor: isVisible ? "lightgreen" : "lightcoral" }}>
+ *       {isVisible ? "I'm visible! 🎉" : "Not in view 👀"}
+ *     </div>
+ *   );
+ * }
  */
-export function useOnScreen(
-  element: RefObject<Element>,
+export function useOnScreen<T extends HTMLElement>(
   rootMargin: string = "0px",
-): boolean {
+): TUseOnScreenReturn<T> {
   const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<T | null>(null);
 
   useEffect(() => {
-    if (!element.current) return;
-
-    // Ensure IntersectionObserver is supported
-    if (!("IntersectionObserver" in window)) {
-      console.warn("IntersectionObserver is not supported in this browser.");
-      return;
-    }
+    const target = ref.current;
+    if (!target) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
+      ([entry]) => setIsVisible(entry.isIntersecting),
       { rootMargin },
     );
 
-    const target = element.current;
     observer.observe(target);
 
-    return () => {
-      observer.disconnect(); // Clean up observer
-    };
-  }, [element, rootMargin]);
+    return () => observer.unobserve(target);
+  }, [ref, rootMargin]);
 
-  return isVisible;
+  return { ref, isVisible };
 }

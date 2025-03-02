@@ -1,18 +1,29 @@
 import { DependencyList, EffectCallback, useEffect, useRef } from "react";
 
+type TUseUpdatedEffectReturn = void;
+
 /**
- * A custom React hook that enhances the `useEffect` hook by providing advanced dependency comparison.
- * This hook is designed to prevent execution of effect on the first render and also unnecessary re-executions of the effect function when the dependencies remain unchanged between renders.
+ * A custom hook that only executes the effect when dependencies change.
  *
- * @param effect - The effect function to be executed.
- * @param deps - An array of dependencies that the effect function depends on.
+ * @param {EffectCallback} effect - The effect function to execute.
+ * @param {DependencyList} deps - An array of dependencies to track changes.
  *
- * @returns {void}
+ * @example
+ * import { useUpdatedEffect } from "hooks-for-react";
+ *
+ * export default function useUpdatedEffect() {
+ *   useUpdatedEffect(() => {
+ *     console.log("Effect triggered due to dependency change.");
+ *   }, [someState]);
+ *
+ *   return <div>Check the console!</div>;
+ * }
  */
+
 export default function useUpdatedEffect(
   effect: EffectCallback,
   deps: DependencyList,
-): void {
+): TUseUpdatedEffectReturn {
   const previousDepsRef = useRef<DependencyList | undefined>(undefined);
 
   useEffect(() => {

@@ -1,44 +1,41 @@
-import { type RefObject } from "react";
+import { useCallback, useRef } from "react";
 import { useEventListener } from "./useEventListener.ts";
+
+type TUseClickOutsideReturn<T> = { ref: React.MutableRefObject<T | null> };
+
 /**
  * A custom React hook that listens for clicks outside of a specified element and triggers a callback function.
  *
- * @param elementRef - A React ref object that points to the DOM element to listen for clicks outside of.
- * @param callback - A function to be called when a click occurs outside of the specified element.
+ * @param elementRef - A React ref object pointing to the target element.
+ * @param callback - A function to be executed when a click occurs outside the element.
  *
- * @returns {void}
+ * @return {Object} An object containing:
+ * - `ref`: A ref that you can attach to any element
  *
  * @example
- * ```typescript
- * import React from 'react';
- * import useClickOutside from './useClickOutside';
+ * import { useClickOutside } from "hooks-for-react";
  *
- * const MyComponent: React.FC = () => {
- *   const ref = React.useRef<HTMLDivElement>(null);
- *   const handleClickOutside = () => {
- *     console.log('Clicked outside!');
- *   };
+ * export default function UseClickOutside() {
+ *   const { ref } = useClickOutside<HTMLDivElement>(() => console.log("Clicked outside!"));
  *
- *   useClickOutside(ref, handleClickOutside);
- *
- *   return (
- *     <div ref={ref}>
- *       Click outside of this div to trigger the callback.
- *     </div>
- *   );
- * };
- * ```
+ *   return <div ref={ref}>Click outside of this div to trigger the callback.</div>;
+ * }
  */
-export default function useClickOutside(
-  elementRef: RefObject<HTMLElement>,
+export default function useClickOutside<T extends HTMLElement>(
   callback: () => void,
-): void {
-  function handleClick(e: MouseEvent | TouchEvent) {
-    if (!elementRef.current?.contains(e.target as Node)) {
-      callback();
-    }
-  }
+): TUseClickOutsideReturn<T> {
+  const ref = useRef<T | null>(null);
+  const handleClick = useCallback(
+    (event: MouseEvent | TouchEvent) => {
+      if (!ref.current?.contains(event.target as Node)) {
+        callback();
+      }
+    },
+    [callback, ref],
+  );
 
-  useEventListener("mousedown", handleClick);
-  useEventListener("touchstart", handleClick);
+  useEventListener("mousedown", handleClick, { current: document.body });
+  useEventListener("touchstart", handleClick, { current: document.body });
+
+  return { ref };
 }

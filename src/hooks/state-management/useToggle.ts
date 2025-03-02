@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+type TUseToggleReturn = readonly [boolean, (value?: boolean) => void];
 /**
  * A custom React hook that manages a boolean state and provides a function to toggle it and make it true or false whenever needed.
  *
@@ -7,11 +8,9 @@ import { useState } from "react";
  * @returns An array containing the current state and a function to toggle it.
  *
  * @example
- * ```typescript
- * import React from 'react';
- * import useToggle from './useToggle';
+ * import { useToggle } from 'hooks-for-react';
  *
- * function ToggleComponent() {
+ * function UseToggle() {
  *   const [isToggled, toggle] = useToggle(false);
  *
  *   return (
@@ -25,7 +24,7 @@ import { useState } from "react";
  * }
  * ```
  */
-export default function useToggle(initialValue: boolean) {
+export default function useToggle(initialValue: boolean): TUseToggleReturn {
   const [state, setState] = useState(initialValue);
 
   function setValue(value?: boolean) {

@@ -1,52 +1,49 @@
 import { useRef, useEffect } from "react";
 
 /**
- * Custom hook to add and manage event listeners efficiently.
+ * A custom hook for adding event listeners to elements efficiently.
  *
- * @param eventType - Type of the event to listen for (e.g., 'click', 'keydown').
- * @param callback - Function to be called when the event is triggered.
- * @param element - Target element to attach the event listener (default is `window`).
- * @param options - Extra add event listener options.
+ * @param eventType - The type of event to listen for (e.g., 'click', 'keydown').
+ * @param callback - The function to execute when the event fires.
+ * @param elementRef - A React ref pointing to the target element (defaults to `window`).
+ * @param options - Additional options for `addEventListener`.
+ *
+ * @example
+ * import { useEventListener } from "hooks-for-react";
+ *
+ * export default function UseEventListener() {
+ *   const buttonRef = useRef<HTMLButtonElement>(null);
+ *
+ *   useEventListener("click", () => alert("Button clicked!"), buttonRef);
+ *
+ *   return <button ref={buttonRef}>Click Me</button>;
+ * }
  */
 export function useEventListener<K extends keyof WindowEventMap>(
   eventType: K,
   callback: (event: WindowEventMap[K]) => void,
-  elementRef?: React.MutableRefObject<HTMLElement | null>,
+  elementRef?: React.RefObject<HTMLElement | Window | Document>,
   options?: boolean | AddEventListenerOptions,
 ) {
-  // Store the latest callback in a ref to prevent re-creating the event listener on each render.
+  // Store the latest callback in a ref to avoid re-creating the event handler
   const callbackRef = useRef(callback);
 
-  // Update the ref with the latest callback whenever it changes.
   useEffect(() => {
     callbackRef.current = callback;
   }, [callback]);
 
-  // Add and remove the event listener.
   useEffect(() => {
-    let element: HTMLElement | Window = window;
-    if (elementRef?.current != null) {
-      element = elementRef.current;
-    }
-    // Ensure the element supports `addEventListener` to avoid runtime errors.
-    if (!element || !element.addEventListener) {
-      console.warn(
-        `Provided element does not support event listeners: ${element}`,
-      );
-      return;
-    }
+    const target = elementRef?.current ?? window;
 
-    // Create an event handler that calls the latest callback.
-    const handleEvent = (event: WindowEventMap[K]) => {
+    if (!(target && target.addEventListener)) return;
+
+    const handleEvent = (event: WindowEventMap[K]) =>
       callbackRef.current(event);
-    };
 
-    // Attach the event listener with type casting to EventListener.
-    element.addEventListener(eventType, handleEvent as EventListener, options);
+    target.addEventListener(eventType, handleEvent as EventListener, options);
 
-    // Cleanup the event listener on component unmount or dependency change.
     return () => {
-      element.removeEventListener(
+      target.removeEventListener(
         eventType,
         handleEvent as EventListener,
         options,

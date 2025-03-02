@@ -1,40 +1,51 @@
 import { DependencyList, EffectCallback, useEffect, useRef } from "react";
 
+type TUseAdvancedEffectReturn = void;
+
 /**
- * A custom React hook that enhances the `useEffect` hook by providing advanced dependency comparison.
- * This hook is designed to prevent execution of effect on the first render and also unnecessary re-executions of the effect function when the dependencies remain unchanged between renders.
+ * A custom React hook that enhances `useEffect` with advanced dependency comparison.
  *
- * @param effect - The effect function to be executed.
- * @param deps - An array of dependencies that the effect function depends on.
+ * - It **skips execution on the initial render**.
+ * - It **executes the effect only if the dependencies change** between renders.
+ * - It prevents unnecessary re-executions when dependencies remain unchanged.
  *
- * @returns {void}
+ * @param {EffectCallback} effect - The effect function to execute.
+ * @param {DependencyList} deps - An array of dependencies that determine when the effect runs.
+ *
+ * @example
+ * import { useAdvancedEffect } from "hooks-for-react";
+ *
+ * export default function UseAdvancedEffect() {
+ *   const [count, setCount] = useState(0);
+ *
+ *   useAdvancedEffect(() => {
+ *     console.log("Effect triggered:", count);
+ *   }, [count]);
+ *
+ *   return <button onClick={() => setCount(count + 1)}>Increment</button>;
+ * }
  */
 export default function useAdvancedEffect(
   effect: EffectCallback,
   deps: DependencyList,
-): void {
-  const firstTimeRenderRef = useRef(true);
+): TUseAdvancedEffectReturn {
+  const firstRender = useRef(true);
   const previousDepsRef = useRef<DependencyList | undefined>(undefined);
 
   useEffect(() => {
-    // Check if this is the first render
-    if (firstTimeRenderRef.current) {
-      firstTimeRenderRef.current = false;
+    if (firstRender.current) {
+      firstRender.current = false;
       previousDepsRef.current = deps;
-
       return;
     }
 
-    // Compare previous and current dependencies to detect changes
-    const isDepsChanged = deps.some(
+    const hasDepsChanged = deps.some(
       (dep, i) => dep !== previousDepsRef.current?.[i],
     );
 
-    if (isDepsChanged) {
-      // Update the previous dependencies reference
+    if (hasDepsChanged) {
       previousDepsRef.current = deps;
-      // Call the effect function
       return effect();
     }
-  }, [effect, deps]);
+  }, [deps, effect]); // Ensure effect runs only when dependencies change
 }

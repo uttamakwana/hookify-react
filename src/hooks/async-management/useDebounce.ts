@@ -1,46 +1,40 @@
 import { useEffect } from "react";
-import useTimeout from "./useTimeout.ts";
+import useTimeout from "./useTimeout.ts"; // Ensure this is correctly imported
 
 /**
- * A custom React hook that debounces the execution of a callback function.
- * It uses the `useTimeout` hook to delay the execution of the callback until after the specified delay.
+ * Custom hook that delays the execution of a callback function
+ * until after a specified delay has elapsed since the last change in dependencies.
  *
- * @param callback - The function to be debounced.
- * @param delay - The delay in milliseconds after which the callback should be executed.
- * @param deps - Additional dependencies for the useEffect hooks.
- *
- * @returns {void} - The function does not return any value.
+ * @param {() => void} callback - The function to debounce.
+ * @param {number} delay - The delay in milliseconds before executing the callback.
+ * @param {unknown[]} deps - The dependencies that trigger the debounce effect.
  *
  * @example
- * ```typescript
- * import React from 'react';
- * import useDebounce from './useDebounce';
+ * // Usage example in a component:
+ * function SearchComponent() {
+ *   const [query, setQuery] = useState("");
  *
- * const SearchInput: React.FC = () => {
- *   const [searchTerm, setSearchTerm] = React.useState('');
- *
- *   const getSearchedValueFromServer = React.useCallback(() => {
- *     // Perform search logic with searchTerm
- *   }, [searchTerm]);
- *
- *   useDebounce(getSearchedValueFromServer, 500, [searchTerm]);
+ *   useDebounce(() => {
+ *     console.log("Searching for:", query);
+ *   }, 500, [query]);
  *
  *   return (
  *     <input
  *       type="text"
- *       value={searchTerm}
- *       onChange={(e) => setSearchTerm(e.target.value)}
+ *       placeholder="Search..."
+ *       value={query}
+ *       onChange={(e) => setQuery(e.target.value)}
  *     />
  *   );
- * };
- * ```
+ * }
  */
 export default function useDebounce(
   callback: () => void,
   delay: number,
-  [...deps]: unknown[],
+  deps: unknown[],
 ): void {
   const { reset, clear } = useTimeout(callback, delay);
-  useEffect(reset, [...deps, reset]);
-  useEffect(clear, [clear]);
+
+  useEffect(reset, [...deps, reset]); // Resets the timeout when dependencies change
+  useEffect(clear, [clear]); // Clears the timeout on unmount
 }
