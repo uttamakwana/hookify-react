@@ -26,7 +26,7 @@ type TUseHoverReturn<T> = {
  *   );
  * }
  */
-export default function useHover<T extends HTMLElement>(): TUseHoverReturn<T> {
+export function useHover<T extends HTMLElement>(): TUseHoverReturn<T> {
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef<T | null>(null);
 

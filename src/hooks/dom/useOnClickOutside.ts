@@ -21,7 +21,7 @@ type TUseClickOutsideReturn<T> = { ref: React.MutableRefObject<T | null> };
  *   return <div ref={ref}>Click outside of this div to trigger the callback.</div>;
  * }
  */
-export default function useClickOutside<T extends HTMLElement>(
+export function useClickOutside<T extends HTMLElement>(
   callback: () => void,
 ): TUseClickOutsideReturn<T> {
   const ref = useRef<T | null>(null);

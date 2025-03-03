@@ -50,7 +50,7 @@ type TUseArrayReturn<T> = readonly [
  *  return <div>Render and perform the action over here</div>
  * }
  */
-export default function useArray<T>(initialValue: T[]): TUseArrayReturn<T> {
+export function useArray<T>(initialValue: T[]): TUseArrayReturn<T> {
   // State to hold the array
   const [state, setState] = useState<T[]>(initialValue);
 

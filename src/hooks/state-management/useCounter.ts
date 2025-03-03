@@ -30,7 +30,7 @@ type CounterValueType = number;
  *  );
  * }
  */
-export default function useCounter(initialValue: CounterValueType = 0) {
+export function useCounter(initialValue: CounterValueType = 0) {
   // State to hold the current counter value.
   const [count, setCount] = useState<CounterValueType>(initialValue);
 

@@ -23,7 +23,7 @@ import { useEffect, useRef } from "react";
  *  </div>
  * );
  */
-export default function usePrevious<T>(value: T): T | null {
+export function usePrevious<T>(value: T): T | null {
   const ref = useRef<T | null>(null);
 
   useEffect(() => {

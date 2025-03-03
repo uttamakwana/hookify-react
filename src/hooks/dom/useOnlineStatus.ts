@@ -21,7 +21,7 @@ type TUseOnlineStatusReturn = {
  *  return <div>{onlineStatus === "online" ? "You are online😁" ? "You are offline😥"}</div>
  * }
  */
-export default function useOnlineStatus(): TUseOnlineStatusReturn {
+export function useOnlineStatus(): TUseOnlineStatusReturn {
   const [onlineStatus, setOnlineStatus] = useState<TOnlineStatus>(
     navigator.onLine ? "online" : "offline",
   );

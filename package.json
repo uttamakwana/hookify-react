@@ -1,11 +1,17 @@
 {
   "name": "hooks-for-react",
+  "description": "A collection of optimized and reusable React hooks for state management, storage, and performance improvements.",
   "private": false,
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "main": "./dist/index.js",
-  "module": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "dev": "vite --host",
     "test:watch": "vitest",
@@ -50,5 +56,20 @@
   },
   "author": "Uttam Makwana",
   "license": "MIT",
-  "repository": "https://github.com/uttamakwana/hooks-for-react"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uttamakwana/hooks-for-react.git"
+  },
+  "keywords": [
+    "react",
+    "react hooks",
+    "custom react hooks",
+    "useState alternative",
+    "useEffect alternative",
+    "react utilities",
+    "typescript",
+    "state management",
+    "frontend hooks",
+    "react performance optimization"
+  ]
 }

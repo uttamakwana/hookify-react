@@ -24,7 +24,7 @@ type TUseToggleReturn = readonly [boolean, (value?: boolean) => void];
  * }
  * ```
  */
-export default function useToggle(initialValue: boolean): TUseToggleReturn {
+export function useToggle(initialValue: boolean): TUseToggleReturn {
   const [state, setState] = useState(initialValue);
 
   function setValue(value?: boolean) {

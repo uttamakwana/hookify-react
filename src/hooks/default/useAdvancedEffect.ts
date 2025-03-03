@@ -25,7 +25,7 @@ type TUseAdvancedEffectReturn = void;
  *   return <button onClick={() => setCount(count + 1)}>Increment</button>;
  * }
  */
-export default function useAdvancedEffect(
+export function useAdvancedEffect(
   effect: EffectCallback,
   deps: DependencyList,
 ): TUseAdvancedEffectReturn {

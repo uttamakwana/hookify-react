@@ -22,7 +22,7 @@ type TUsePressReturn<T> = {
  * return <button ref={ref}>{isPressed ? "Wow that feels good😁!" : "Please press me!😥"}</button>
  * }
  */
-export default function usePress<T extends HTMLElement>(): TUsePressReturn<T> {
+export function usePress<T extends HTMLElement>(): TUsePressReturn<T> {
   const [isPressed, setIsPressed] = useState(false);
   const ref = useRef<T>(null);
 

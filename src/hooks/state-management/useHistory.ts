@@ -33,7 +33,7 @@ type TUseHistoryReturn<T> = readonly [
  *  return <div>Play with the value</div>;
  * }
  */
-export default function useHistory<T>(
+export function useHistory<T>(
   defaultValue: T | (() => T),
   { capacity = 10 }: TUseHistoryOptions = {},
 ): TUseHistoryReturn<T> {

@@ -20,7 +20,7 @@ type TUseUpdatedEffectReturn = void;
  * }
  */
 
-export default function useUpdatedEffect(
+export function useUpdatedEffect(
   effect: EffectCallback,
   deps: DependencyList,
 ): TUseUpdatedEffectReturn {

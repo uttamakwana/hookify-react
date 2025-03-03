@@ -33,7 +33,7 @@ type TUseCopyToClipboardReturn = {
  *   );
  * }
  */
-export default function useCopyToClipboard(): TUseCopyToClipboardReturn {
+export function useCopyToClipboard(): TUseCopyToClipboardReturn {
   const [isCopied, setIsCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

@@ -14,7 +14,7 @@ type TUseStorageReturn<T> = readonly [T, Dispatch<SetStateAction<T>>];
  * const [data, setData] = useLocalStorage("user", { name: "John" });
  * setData({ name: "Doe" }); // Updates localStorage and state
  */
-export default function useStorage<T>(
+export function useStorage<T>(
   key: string,
   defaultValue: T | (() => T),
   storage: Storage,
