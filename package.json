@@ -1,9 +1,9 @@
 {
-  "name": "hooks-for-react",
-  "description": "A collection of optimized and reusable React hooks for state management, storage, and performance improvements.",
+  "name": "hookify-react",
+  "description": "A collection of optimized and reusable React hooks for state management, dom interaction, responsive design, storage, location, asynchronous management and performance improvements.",
   "private": false,
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -58,18 +58,46 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/uttamakwana/hooks-for-react.git"
+    "url": "https://github.com/uttamakwana/hookify-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/uttamakwana/hookify-react/issues"
   },
   "keywords": [
     "react",
     "react hooks",
     "custom react hooks",
-    "useState alternative",
-    "useEffect alternative",
-    "react utilities",
-    "typescript",
+    "asynchronous management",
+    "useDebounce",
+    "useInterval",
+    "useTimeout",
+    "useAdvancedEffect",
+    "useUpdatedEffect",
+    "dom",
+    "useCopyToClipboard",
+    "useEventListener",
+    "useHover",
+    "useClickOutside",
+    "useOnlineStatus",
+    "useOnScreen",
+    "usePress",
+    "useScrollPosition",
+    "useSize",
+    "useWindowSize",
+    "location",
+    "useGeoLocation",
     "state management",
-    "frontend hooks",
-    "react performance optimization"
+    "useArray",
+    "useCounter",
+    "useFormState",
+    "useHistory",
+    "usePrevious",
+    "useToggle",
+    "storage",
+    "useStorage",
+    "useLocalStorage",
+    "useSessionStorage",
+    "hookify-react",
+    "hooks for react"
   ]
 }

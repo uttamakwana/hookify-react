@@ -25,7 +25,7 @@ type TUseHistoryReturn<T> = readonly [
  * Returns the current state, a setter function, and an object containing history, pointer, and navigation functions.
  *
  * @example
- * import { useHistory } from "hooks-for-react";
+ * import { useHistory } from "hookify-react";
  *
  * export default function UseHistory() {
  *  const [value, setValue, { history, pointer, forward, go, back }] = useHistory([0]);

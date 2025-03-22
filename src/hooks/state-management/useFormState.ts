@@ -33,7 +33,7 @@ type TUseFormStateReturn<T> = readonly [T, Dispatch<SetStateAction<T>>, TData];
  * Returns the state, a setter function, and an object containing validation errors, validity status, and form status.
  *
  * @example
- * import { useFormState } from "hooks-for-react";
+ * import { useFormState } from "hookify-react";
  *
  * export default function UseFormState() {
  *  const [name, setName, { errors, isValid, status }] = useFormState("Hooks for React", [(name) => name.length < 3 ? "Name must have atleast 3 character" : undefined, (name) => name.includes("bad words") ? "Name must not contain bad words" ? undefined]);

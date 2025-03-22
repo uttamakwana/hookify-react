@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
  * @returns The previous value before the last update, or `null` if no previous value exists.
  *
  * @example
- * import { usePrevious } from "hooks-for-react";
+ * import { usePrevious } from "hookify-react";
  * const [count, setCount] = useState(0);
  * const prevCount = usePrevious(count);
  *

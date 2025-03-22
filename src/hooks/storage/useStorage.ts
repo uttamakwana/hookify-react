@@ -50,7 +50,7 @@ export function useStorage<T>(
  * @param defaultValue - The default value or a function returning the default value.
  *
  * @example
- * import { useLocalStorage } from "hooks-for-react";
+ * import { useLocalStorage } from "hookify-react";
  *
  * export default function UseLocalStorage() {
  *  const [name, setName] = useLocalStorage("name", "default name");
@@ -72,7 +72,7 @@ export function useLocalStorage<T>(
  * @param defaultValue - The default value or a function returning the default value.
  *
  * @example
- * import { useSessionStorage } from "hooks-for-react";
+ * import { useSessionStorage } from "hookify-react";
  *
  * export default function UseSessionStorage() {
  *  const [name, setName] = useSessionStorage("name", "default name");

@@ -17,7 +17,7 @@ type CounterValueType = number;
  *  - `reset`: Function to reset the counter to its initial value.
  *
  * @example
- * import { useCounter } from "hooks-for-react";
+ * import { useCounter } from "hookify-react";
  *
  * export default function UseCounter() {
  *  const { count, increment, decrement } = useCounter(0);

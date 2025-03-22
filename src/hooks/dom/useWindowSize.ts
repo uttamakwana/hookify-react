@@ -11,7 +11,7 @@ type TUseWindowSizeReturn = WindowSize;
  * - `height`: The current height of the window.
  *
  * @example
- * import { useWindowSize } from "hooks-for-react";
+ * import { useWindowSize } from "hookify-react";
  *
  * export default function UseWindowSize() {
  *  const { width, height } = useWindowSize();

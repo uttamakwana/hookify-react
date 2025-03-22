@@ -12,7 +12,7 @@ type TUseOnScreenReturn<T> = {
  * @returns `true` if the element is visible on the screen, otherwise `false`.
  *
  * @example
- * import { useOnScreen } from "hooks-for-react";
+ * import { useOnScreen } from "hookify-react";
  *
  * export default function UseOnScreen() {
  *  const { ref, isVisible } = useOnScreen();

@@ -13,7 +13,7 @@ type TUseAdvancedEffectReturn = void;
  * @param {DependencyList} deps - An array of dependencies that determine when the effect runs.
  *
  * @example
- * import { useAdvancedEffect } from "hooks-for-react";
+ * import { useAdvancedEffect } from "hookify-react";
  *
  * export default function UseAdvancedEffect() {
  *   const [count, setCount] = useState(0);

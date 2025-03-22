@@ -27,7 +27,7 @@ type TUseScrollInfoReturn<T> = {
  * - `scrollProgress`: Percentage value of how much an element is scrolled
  *
  * @example
- * import { useScrollInfo } from "hooks-for-react";
+ * import { useScrollInfo } from "hookify-react";
  *
  * export default function UseScrollInfo() {
  *  const { ref, scrollX, scrollY, scrollDirection, isScrolling, scrollProgress } = useScrollInfo<HTMLDivElement>();

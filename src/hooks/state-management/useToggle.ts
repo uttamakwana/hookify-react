@@ -8,7 +8,7 @@ type TUseToggleReturn = readonly [boolean, (value?: boolean) => void];
  * @returns An array containing the current state and a function to toggle it.
  *
  * @example
- * import { useToggle } from 'hooks-for-react';
+ * import { useToggle } from 'hookify-react';
  *
  * function UseToggle() {
  *   const [isToggled, toggle] = useToggle(false);

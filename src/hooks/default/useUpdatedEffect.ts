@@ -9,7 +9,7 @@ type TUseUpdatedEffectReturn = void;
  * @param {DependencyList} deps - An array of dependencies to track changes.
  *
  * @example
- * import { useUpdatedEffect } from "hooks-for-react";
+ * import { useUpdatedEffect } from "hookify-react";
  *
  * export default function useUpdatedEffect() {
  *   useUpdatedEffect(() => {

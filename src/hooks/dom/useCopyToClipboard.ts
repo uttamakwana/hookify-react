@@ -19,7 +19,7 @@ type TUseCopyToClipboardReturn = {
  * - `error`: Any error that occurred while copying.
  *
  * @example
- * import { useCopyToClipboard } from "hooks-for-react";
+ * import { useCopyToClipboard } from "hookify-react";
  *
  * export default function UseCopyToClipboard() {
  *   const { copy, isCopied, error } = useCopyToClipboard();

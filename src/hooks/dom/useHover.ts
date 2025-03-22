@@ -14,7 +14,7 @@ type TUseHoverReturn<T> = {
  * - `isHovered`: Boolean indicating an element is being hovered or not
  *
  * @example
- * import { useHover } from "hooks-for-react";
+ * import { useHover } from "hookify-react";
  *
  * export default function UseHover() {
  *   const { ref, isHovered } = useHover<HTMLDivElement>();

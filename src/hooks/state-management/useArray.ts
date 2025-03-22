@@ -42,7 +42,7 @@ type TUseArrayReturn<T> = readonly [
  * - `updateByValue`: Updates the first occurrence of a specific value with a new value.
  *
  * @example
- * import { useArray } from "hooks-for-react";
+ * import { useArray } from "hookify-react";
  *
  * export default function UseArray() {
  *  const [data, setData, { push, pop, clear, filter }] = useArray<{ name: string, age: number }>();

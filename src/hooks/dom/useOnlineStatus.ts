@@ -13,7 +13,7 @@ type TUseOnlineStatusReturn = {
  * - `onlineStatus`: Indicating whether the user is "online" or "offline".
  *
  * @example
- * import { useOnlineStatus } from "hooks-for-react";
+ * import { useOnlineStatus } from "hookify-react";
  *
  * export default function UseOnlineStatus() {
  *  const { onlineStatus } = useOnlineStatus();

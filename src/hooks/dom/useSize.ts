@@ -22,7 +22,7 @@ type TUseSizeReturn<T> = {
  * - `size`: The element's current size (`width`, `height`, `top`, `left`, `bottom`, `right`).
  *
  * @example
- * import { useSize } from "hooks-for-react";
+ * import { useSize } from "hookify-react";
  *
  * export default function UseSize() {
  *  const { ref, size } = useSize<HTMLDivElement>();

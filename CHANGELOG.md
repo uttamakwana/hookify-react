@@ -1,4 +1,4 @@
-# hooks-for-react
+# hookify-react
 
 ## 0.0.3
 

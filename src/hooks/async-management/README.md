@@ -13,6 +13,6 @@ A React custom hook that delays the execution of a function until after a specif
 You can install this hook in your React project using npm or yarn:
 
 ```sh
-npm install hooks-for-react
+npm install hookify-react
 # or
-yarn add hooks-for-react
+yarn add hookify-react

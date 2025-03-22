@@ -29,7 +29,7 @@ type GeoLocationOptions = {
  * - `coords`: The user's latest coordinates (latitude, longitude, accuracy, etc.).
  *
  * @example
- * import { useGeoLocation } from "hooks-for-react";
+ * import { useGeoLocation } from "hookify-react";
  *
  * export default function UseGeoLocation() {
  *  const { loading, error, coords } = useGeoLocation({ enableHighAccuracy: true });

@@ -9,7 +9,7 @@ import { useRef, useEffect } from "react";
  * @param options - Additional options for `addEventListener`.
  *
  * @example
- * import { useEventListener } from "hooks-for-react";
+ * import { useEventListener } from "hookify-react";
  *
  * export default function UseEventListener() {
  *   const buttonRef = useRef<HTMLButtonElement>(null);

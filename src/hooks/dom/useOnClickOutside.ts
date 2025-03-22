@@ -13,7 +13,7 @@ type TUseClickOutsideReturn<T> = { ref: React.MutableRefObject<T | null> };
  * - `ref`: A ref that you can attach to any element
  *
  * @example
- * import { useClickOutside } from "hooks-for-react";
+ * import { useClickOutside } from "hookify-react";
  *
  * export default function UseClickOutside() {
  *   const { ref } = useClickOutside<HTMLDivElement>(() => console.log("Clicked outside!"));
