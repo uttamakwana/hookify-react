@@ -3,7 +3,7 @@
   "description": "A collection of optimized and reusable React hooks for state management, dom interaction, responsive design, storage, location, asynchronous management and performance improvements.",
   "private": false,
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
