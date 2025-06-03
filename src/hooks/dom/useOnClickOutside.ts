@@ -13,12 +13,23 @@ type TUseClickOutsideReturn<T> = { ref: React.MutableRefObject<T | null> };
  * - `ref`: A ref that you can attach to any element
  *
  * @example
- * import { useClickOutside } from "hookify-react";
+ *   import { useClickOutside } from "hookify-react";
+ *   import { useState } from "react";
  *
- * export default function UseClickOutside() {
- *   const { ref } = useClickOutside<HTMLDivElement>(() => console.log("Clicked outside!"));
+ *   export default function ClickOutsideExample() {
+ *     const [isOpen, setIsOpen] = useState(true);
+ *     const { ref } = useClickOutside<HTMLDivElement>(() => setIsOpen(false));
  *
- *   return <div ref={ref}>Click outside of this div to trigger the callback.</div>;
+ *     return (
+ *       <div>
+ *         <button onClick={() => setIsOpen(true)}>Open Modal</button>
+ *         {isOpen && (
+ *           <div ref={ref} style={{ padding: "20px", border: "1px solid black", width: "200px" }}>
+ *             Click outside of this box to close it.
+ *         </div>
+ *       )}
+ *     </div>
+ * );
  * }
  */
 export function useClickOutside<T extends HTMLElement>(

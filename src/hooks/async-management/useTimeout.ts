@@ -23,7 +23,7 @@ import { useCallback, useEffect, useRef } from "react";
  *   );
  * }
  */
-export default function useTimeout(
+export function useTimeout(
   callback: () => void,
   delay: number,
 ): { set: () => void; clear: () => void; reset: () => void } {

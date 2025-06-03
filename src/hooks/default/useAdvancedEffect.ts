@@ -14,15 +14,28 @@ type TUseAdvancedEffectReturn = void;
  *
  * @example
  * import { useAdvancedEffect } from "hookify-react";
+ * import { useState } from "react";
+
+ * export default function UseAdvancedEffectExample() {
+ *  const [count, setCount] = useState(0);
+ *  const [otherCount, setOtherCount] = useState(0);
  *
- * export default function UseAdvancedEffect() {
- *   const [count, setCount] = useState(0);
+ *  useAdvancedEffect(() => {
+ *    console.log("Effect triggered:", count);
+ *  }, [count]);
  *
- *   useAdvancedEffect(() => {
- *     console.log("Effect triggered:", count);
- *   }, [count]);
- *
- *   return <button onClick={() => setCount(count + 1)}>Increment</button>;
+ *  return (
+ *    <div style={{ textAlign: "center", fontFamily: "Arial, sans-serif" }}>
+ *      <h2>useAdvancedEffect Hook Example</h2>
+ *      <p>Count: <strong>{count}</strong></p>
+ *      <p>Other count: <strong>{otherCount}</strong></p>
+ *      <button onClick={() => setCount(prev => prev + 1)}>Increment</button>
+ *      <button onClick={() => setOtherCount(prev => prev + 1)}>
+ *        Increment other count
+ *      </button>
+ *      <p>Check the console for effect triggers.</p>
+ *    </div>
+ *  );
  * }
  */
 export function useAdvancedEffect(

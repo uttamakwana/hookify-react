@@ -12,17 +12,30 @@ type TUseOnScreenReturn<T> = {
  * @returns `true` if the element is visible on the screen, otherwise `false`.
  *
  * @example
- * import { useOnScreen } from "hookify-react";
+ *   import { useOnScreen } from "hookify-react";
  *
- * export default function UseOnScreen() {
- *  const { ref, isVisible } = useOnScreen();
+ *   export default function UseOnScreenExample() {
+ *     const { ref, isVisible } = useOnScreen("-100px");
  *
- * return (
- *     <div ref={ref} style={{ height: "200px", backgroundColor: isVisible ? "lightgreen" : "lightcoral" }}>
- *       {isVisible ? "I'm visible! 🎉" : "Not in view 👀"}
- *     </div>
- *   );
- * }
+ *     return (
+ *       <div>
+ *         <div style={{ height: "100svh" }}>Scroll down to see the box</div>
+ *         <div
+ *           ref={ref}
+ *           style={{
+ *             height: "400px",
+ *             backgroundColor: isVisible ? "lightgreen" : "lightcoral",
+ *             display: "flex",
+ *             alignItems: "center",
+ *             justifyContent: "center",
+ *             fontSize: "20px",
+ *           }}
+ *         >
+ *           {isVisible ? "I'm visible! 🎉" : "Not in view 👀"}
+ *         </div>
+ *       </div>
+ *     );
+ *   }
  */
 export function useOnScreen<T extends HTMLElement>(
   rootMargin: string = "0px",

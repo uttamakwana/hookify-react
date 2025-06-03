@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useTimeout from "./useTimeout.ts"; // Ensure this is correctly imported
+import { useTimeout } from "./useTimeout.ts"; // Ensure this is correctly imported
 
 /**
  * Custom hook that delays the execution of a callback function
@@ -28,7 +28,7 @@ import useTimeout from "./useTimeout.ts"; // Ensure this is correctly imported
  *   );
  * }
  */
-export default function useDebounce(
+export function useDebounce(
   callback: () => void,
   delay: number,
   deps: unknown[],

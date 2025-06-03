@@ -14,13 +14,17 @@ type TUsePressReturn<T> = {
  * - `isPressed`: Boolean indicating whether an element is being pressed or not
  *
  * @example
- * import { usePress } from "hookify-react";
+ *  import { usePress } from "hookify-react";
  *
- * export default function UsePress() {
- *  const { ref, isPressed } = usePress<HTMLButtonElement>();
+ *  export default function UsePressExample() {
+ *    const { ref, isPressed } = usePress<HTMLButtonElement>();
  *
- * return <button ref={ref}>{isPressed ? "Wow that feels good😁!" : "Please press me!😥"}</button>
- * }
+ *    return (
+ *      <button ref={ref} style={{ padding: "10px", fontSize: "16px" }}>
+ *        {isPressed ? "Wow that feels good! 😁" : "Please press me! 😥"}
+ *      </button>
+ *    );
+ *  }
  */
 export function usePress<T extends HTMLElement>(): TUsePressReturn<T> {
   const [isPressed, setIsPressed] = useState(false);

@@ -8,19 +8,22 @@ import { useEffect, useRef } from "react";
  * @returns {{ clear: () => void }} - A function to stop the interval.
  *
  * @example
- * function TimerComponent() {
- *   const [count, setCount] = useState(0);
- *   const { clear } = useInterval(() => setCount((prev) => prev + 1), 1000);
+ *  import { useState } from "react";
+ *  import { useInterval } from "hookify-react";
  *
- *   return (
- *     <div>
- *       <p>Counter: {count}</p>
- *       <button onClick={clear}>Stop Timer</button>
- *     </div>
- *   );
- * }
+ *  export default function UseIntervalExample() {
+ *    const [count, setCount] = useState(0);
+ *    const { clear } = useInterval(() => setCount((prev) => prev + 1), 1000);
+ *
+ *    return (
+ *      <div>
+ *        <p>Counter: {count}</p>
+ *        <button onClick={clear}>Stop Timer</button>
+ *      </div>
+ *    );
+ *  }
  */
-export default function useInterval(
+export function useInterval(
   callback: () => void,
   interval: number = 1000,
 ): { clear: () => void } {

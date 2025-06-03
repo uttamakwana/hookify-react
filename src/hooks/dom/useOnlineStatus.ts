@@ -15,10 +15,14 @@ type TUseOnlineStatusReturn = {
  * @example
  * import { useOnlineStatus } from "hookify-react";
  *
- * export default function UseOnlineStatus() {
- *  const { onlineStatus } = useOnlineStatus();
+ * export default function UseOnlineStatusExample() {
+ *   const { onlineStatus } = useOnlineStatus();
  *
- *  return <div>{onlineStatus === "online" ? "You are online😁" ? "You are offline😥"}</div>
+ *   return (
+ *     <div>
+ *       {onlineStatus === "online" ? "You are online 😁" : "You are offline 😥"}
+ *     </div>
+ *   );
  * }
  */
 export function useOnlineStatus(): TUseOnlineStatusReturn {

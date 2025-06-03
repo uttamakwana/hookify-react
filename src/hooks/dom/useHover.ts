@@ -16,12 +16,26 @@ type TUseHoverReturn<T> = {
  * @example
  * import { useHover } from "hookify-react";
  *
- * export default function UseHover() {
- *   const { ref, isHovered } = useHover<HTMLDivElement>();
+ * export default function UseHoverExample() {
+ *   const { ref, isHovered } = useHover();
  *
  *   return (
- *     <div ref={ref} style={{ background: isHovered ? "blue" : "gray" }}>
- *       Hover over me!
+ *     <div
+ *       ref={ref}
+ *       style={{
+ *         width: "200px",
+ *         height: "100px",
+ *         display: "flex",
+ *         alignItems: "center",
+ *         justifyContent: "center",
+ *         background: isHovered ? "blue" : "gray",
+ *         color: "white",
+ *         fontSize: "18px",
+ *         borderRadius: "8px",
+ *         transition: "background 0.3s ease",
+ *       }}
+ *     >
+ *       {isHovered ? "Hovered! 🎯" : "Hover over me!"}
  *     </div>
  *   );
  * }

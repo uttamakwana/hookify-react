@@ -8,20 +8,23 @@ import { useEffect, useRef } from "react";
  * @returns The previous value before the last update, or `null` if no previous value exists.
  *
  * @example
- * import { usePrevious } from "hookify-react";
- * const [count, setCount] = useState(0);
- * const prevCount = usePrevious(count);
+ *  import { useState } from "react";
+ *  import { usePrevious } from "hookify-react";
  *
- * useEffect(() => {
- *   console.log(`Previous count: ${prevCount}, Current count: ${count}`);
- * }, [count]);
+ *  export default function UsePreviousExample() {
+ *    const [count, setCount] = useState(0);
+ *    const prevCount = usePrevious(count);
  *
- * return (
- *  <div>
- *    <button onClick={() => setCount(prev => prev + 1)}>+1</button>
- *    <span>Previous count value: {prevCount}</span>
- *  </div>
- * );
+ *    console.log(`Previous count: ${prevCount}, Current count: ${count}`);
+ *
+ *    return (
+ *      <div>
+ *        <button onClick={() => setCount(prev => prev + 1)}>+1</button>
+ *        <p>Current count value: <strong>{count}</strong></p>
+ *        <p>Previous count value: <strong>{prevCount}</strong></p>
+ *      </div>
+ *    );
+ *  }
  */
 export function usePrevious<T>(value: T): T | null {
   const ref = useRef<T | null>(null);

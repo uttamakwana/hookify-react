@@ -3,3 +3,4 @@ export * from "./hooks/state-management/index.ts";
 export * from "./hooks/async-management/index.ts";
 export * from "./hooks/storage/index.ts";
 export * from "./hooks/dom/index.ts";
+export * from "./hooks/location/index.ts";
